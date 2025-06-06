@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 LABEL \
     io.hass.name="Datasette" \
     io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.5" \
+    io.hass.version="0.1.6" \
     io.hass.type="addon"
 
 # ------------------------------------------------------------------------------
@@ -22,13 +22,24 @@ ENV \
     DATASETTE_PORT=8001
 
 # ------------------------------------------------------------------------------
-# Install runtime dependencies
+# Install runtime + build dependencies, build Datasette, strip build deps
 # ------------------------------------------------------------------------------
-
-# Python + SQLite + Datasette
-RUN apk add --no-cache python3 py3-pip sqlite \
-    && pip3 install --no-cache-dir --no-binary :all: \
-        datasette==0.65.1 \
+RUN apk add --no-cache \
+        python3 \
+        py3-pip \
+        sqlite \
+    # ----- temporary build toolchain -----
+    && apk add --no-cache --virtual .build-deps \
+        build-base \
+        gcc \
+        musl-dev \
+        libffi-dev \
+        openssl-dev \
+        rust \
+    # ----- Python packages -----
+    && pip3 install --no-cache-dir datasette==0.65.1 \
+    # ----- clean-up -----
+    && apk del .build-deps \
     && pip3 cache purge
 
 # ------------------------------------------------------------------------------
