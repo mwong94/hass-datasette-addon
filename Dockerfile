@@ -10,8 +10,11 @@ FROM ${BUILD_FROM}
 # Set shell for subsequent commands
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install datasette using pip
-RUN pip install --no-cache-dir datasette
+# Create a virtual environment
+RUN python3 -m venv /opt/venv
+
+# Activate the virtual environment and install datasette using pip
+RUN . /opt/venv/bin/activate && pip install --no-cache-dir datasette
 
 # Copy the run script into the container
 COPY run.sh /
@@ -20,4 +23,5 @@ COPY run.sh /
 RUN chmod a+x /run.sh
 
 # This command is executed when the container starts
+# Ensure the run.sh script also uses the virtual environment
 CMD [ "/run.sh" ]

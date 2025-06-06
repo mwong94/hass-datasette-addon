@@ -4,6 +4,9 @@
 
 bashio::log.info "Starting Datasette server..."
 
+bashio::log.info "Activating virtual environment..."
+source /opt/venv/bin/activate
+
 # Read the configured port from the addon options.
 # The value is set on the "Configuration" tab of the addon page.
 PORT=$(bashio::config 'port')
