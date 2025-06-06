@@ -11,7 +11,7 @@ ingress: true
 ingress_port: 8001
 panel_icon: mdi:database
 ports:
-  8111/tcp: 8001
+  8001/tcp: 8001
 schema:
   port: int?
   db_dir: str?

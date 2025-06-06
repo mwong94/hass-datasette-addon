@@ -1,5 +1,5 @@
 # Home Assistant Datasette add‑on
-ARG BUILD_FROM=ghcr.io/hassio-addons/base-python:10.2.6
+ARG BUILD_FROM=ghcr.io/hassio-addons/base-python:16.1.4
 FROM ${BUILD_FROM}
 
 # Copy runtime files
