@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bashio
+set -e
+
+PORT="$(bashio::config 'port')"
+DB_DIR="$(bashio::config 'db_dir')"
+
+bashio::log.info "Starting Datasette on port ${PORT} (DB dir: ${DB_DIR:-/share/datasette})"
+exec /data/venv/bin/datasette serve "${DB_DIR:-/share/datasette}" \
+     --host 0.0.0.0 --port "${PORT}" --cors
