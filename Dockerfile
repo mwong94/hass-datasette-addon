@@ -10,6 +10,10 @@ FROM ${BUILD_FROM}
 # Set shell for subsequent commands
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Install python3 and pip
+RUN apk add --no-cache python3 py3-pip
+
+
 # Create a virtual environment
 RUN python3 -m venv /opt/venv
 

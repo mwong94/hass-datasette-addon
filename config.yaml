@@ -1,6 +1,6 @@
 name: "Datasette"
 description: "Explore and publish your Home Assistant database"
-version: "0.1.23"
+version: "0.1.24"
 slug: "datasette"
 init: false
 
