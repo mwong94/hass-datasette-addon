@@ -1,5 +1,5 @@
 name: Datasette
-version: "0.1.4"
+version: "0.1.5"
 slug: datasette
 description: Browse SQLite databases with Datasette
 arch:
@@ -14,7 +14,7 @@ ports:
   8001/tcp: 8001
 schema:
   port: int?
-  db_dir: str?
+  db_file: str?
 options:
   port: 8001
-  db_dir: /share/datasette
+  db_file: /homeassistant/home-assistant_v2.db
