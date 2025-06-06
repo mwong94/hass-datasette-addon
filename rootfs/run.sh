@@ -17,7 +17,7 @@ while [[ ! -f "${DB_PATH}" ]]; do
 done
 
 echo "[INFO] Starting Datasette on 0.0.0.0:${PORT}"
-exec datasette \
+exec venv/bin/datasette \
   "${DB_PATH}" \
   --host 0.0.0.0 \
   --port "${PORT}" \
