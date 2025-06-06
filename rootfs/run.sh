@@ -1,6 +1,15 @@
 #!/usr/bin/with-contenv bashio
 set -e
 
+# One-time venv creation (persists in /data)
+if [ ! -d /data/venv ]; then
+  python3 -m venv /data/venv
+fi
+
+# Make sure we have the latest Datasette (and pip) every start
+/data/venv/bin/pip install --no-cache-dir --upgrade pip
+/data/venv/bin/pip install --no-cache-dir --upgrade datasette
+
 PORT="$(bashio::config 'port')"
 DB_DIR="$(bashio::config 'db_dir')"
 

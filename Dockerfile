@@ -5,7 +5,3 @@ FROM ${BUILD_FROM}
 # Copy runtime files
 COPY rootfs/ /
 
-# Build virtual environment in /data (persistent)
-RUN python -m venv /data/venv \
-    && /data/venv/bin/pip install --no-cache-dir --upgrade pip \
-    && /data/venv/bin/pip install --no-cache-dir datasette
