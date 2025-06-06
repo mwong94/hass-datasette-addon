@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 LABEL \
     io.hass.name="Datasette" \
     io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.7" \
+    io.hass.version="0.1.8" \
     io.hass.type="addon"
 
 # ------------------------------------------------------------------------------
