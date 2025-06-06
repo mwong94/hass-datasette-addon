@@ -1,6 +1,6 @@
 name: "Datasette"
 description: "Explore and publish your Home Assistant database"
-version: "0.1.26"
+version: "0.1.27"
 slug: "datasette"
 init: false
 
@@ -30,10 +30,15 @@ schema:
 # Map the Home Assistant /config directory into the addon at /config
 # This is crucial for accessing the database file.
 map:
-  - "config:rw"
+  - "config:ro"
 
 # Set an icon for the addon UI
+ingress: true
+ingress_port: 8001
+ingress_entry: /home-assistant_v2.db
 panel_icon: "mdi:database-search"
+panel_title: Datasette
+panel_admin: true
 
 # Optional: Add a link to the project's homepage
 url: "https://datasette.io/"
