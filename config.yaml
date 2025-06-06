@@ -1,5 +1,5 @@
 name: Datasette
-version: "0.1.19"
+version: "0.1.20"
 slug: datasette
 description: Browse SQLite databases with Datasette
 arch:
@@ -19,3 +19,7 @@ schema:
 options:
   port: 8001
   db_file: /homeassistant/home-assistant_v2.db
+map:
+  - type: homeassistant_config
+    read_only: True
+    path: /homeassistant
