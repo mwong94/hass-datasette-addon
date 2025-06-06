@@ -21,7 +21,7 @@ RUN python3 -m venv /opt/venv
 RUN . /opt/venv/bin/activate && pip install --no-cache-dir datasette
 
 # Copy the run script into the container
-COPY run.sh /
+COPY rootfs/run.sh /
 
 # Make the run script executable
 RUN chmod a+x /run.sh
