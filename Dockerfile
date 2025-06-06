@@ -1,5 +1,5 @@
 # Home Assistant Datasette add-on
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:16.1.4
+ARG BUILD_FROM=ghcr.io/hassio-addons/base-python:16.1.4
 FROM ${BUILD_FROM}
 
 # ------------------------------------------------------------------------------
@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 LABEL \
     io.hass.name="Datasette" \
     io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.13" \
+    io.hass.version="0.1.14" \
     io.hass.type="addon"
 
 # ------------------------------------------------------------------------------
@@ -22,10 +22,6 @@ ENV \
 # ------------------------------------------------------------------------------
 # Install runtime dependencies
 # ------------------------------------------------------------------------------
-RUN apk add --no-cache \
-    python3 \
-    py3-pip \
-    sqlite
 RUN python3 -m pip install --no-cache-dir datasette
 RUN python3 -m pip cache purge
 
