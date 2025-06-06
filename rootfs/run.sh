@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-# shellcheck shell=bash
+#!/usr/bin/with-contenv bashio
 
 set -e
 
