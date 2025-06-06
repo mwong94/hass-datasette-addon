@@ -1,0 +1,20 @@
+name: Datasette
+version: "0.1.0"
+slug: datasette
+description: Browse SQLite databases with Datasette
+arch:
+  - amd64
+  - aarch64
+startup: services
+boot: auto
+ingress: true
+ingress_port: 8111
+panel_icon: mdi:database
+ports:
+  8111/tcp: 8111
+schema:
+  port: int?
+  db_dir: str?
+options:
+  port: 8111
+  db_dir: /share/datasette
