@@ -1,5 +1,5 @@
 name: Datasette
-version: "0.1.20"
+version: "0.1.21"
 slug: datasette
 description: Browse SQLite databases with Datasette
 arch:
