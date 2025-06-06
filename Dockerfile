@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 LABEL \
     io.hass.name="Datasette" \
     io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.11" \
+    io.hass.version="0.1.12" \
     io.hass.type="addon"
 
 # ------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ RUN apk add --no-cache \
     python3 \
     py3-pip \
     sqlite
-RUN pip3 install --no-cache-dir --use-pep517 --only-binary=:all: datasette==0.61.1
+RUN pip3 install --no-cache-dir datasette
 RUN pip3 cache purge
 
 # ------------------------------------------------------------------------------
