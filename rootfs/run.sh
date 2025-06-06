@@ -30,5 +30,4 @@ fi
 # The 'exec' command replaces the shell process with the datasette process.
 exec datasette serve "${DB_FILE}" \
     --host "0.0.0.0" \
-    --port "${PORT}" \
-    --metadata '{"title": "Home Assistant Database", "source": "home-assistant_v2.db"}'
+    --port "${PORT}"
