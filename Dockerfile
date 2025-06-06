@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 LABEL \
     io.hass.name="Datasette" \
     io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.14" \
+    io.hass.version="0.1.15" \
     io.hass.type="addon"
 
 # ------------------------------------------------------------------------------
@@ -22,8 +22,8 @@ ENV \
 # ------------------------------------------------------------------------------
 # Install runtime dependencies
 # ------------------------------------------------------------------------------
-RUN python3 -m pip install --no-cache-dir datasette
 RUN python3 -m pip cache purge
+RUN python3 -m pip install --no-cache-dir datasette
 
 # ------------------------------------------------------------------------------
 # Copy runtime files
