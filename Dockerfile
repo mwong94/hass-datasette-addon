@@ -1,45 +1,23 @@
-# Home Assistant Datasette add-on
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:16.1.4
+# /addons/datasette/Dockerfile
+# This file defines how to build the Docker container for the addon.
+
+# Use an official Home Assistant base image.
+# The 'BUILD_FROM' argument is provided by the Home Assistant build system
+# and ensures the correct base image is used for your architecture.
+ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-# ------------------------------------------------------------------------------
-# Metadata (shown in Home-Assistant supervisor UI)
-# ------------------------------------------------------------------------------
-LABEL \
-    io.hass.name="Datasette" \
-    io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.21" \
-    io.hass.type="addon"
+# Set shell for subsequent commands
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# ------------------------------------------------------------------------------
-# Environment
-# ------------------------------------------------------------------------------
-ENV \
-    PYTHONUNBUFFERED=1 \
-    LANG=C.UTF-8 \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-    DATASETTE_PORT=8001
+# Install datasette using pip
+RUN pip install --no-cache-dir datasette
 
-# ------------------------------------------------------------------------------
-# Install runtime dependencies
-# ------------------------------------------------------------------------------
-RUN apk add --no-cache \
-    python3 \
-    py3-pip \
-    sqlite \
-    && python3 -m venv venv \
-    && venv/bin/pip3 install --no-cache-dir datasette==0.61.1
+# Copy the run script into the container
+COPY run.sh /
 
-# ------------------------------------------------------------------------------
-# Copy runtime files
-# ------------------------------------------------------------------------------
-COPY rootfs/ /
+# Make the run script executable
+RUN chmod a+x /run.sh
 
-# Make sure scripts are executable
-RUN chmod a+x /run.sh /etc/services.d/datasette/run /etc/services.d/datasette/finish
-
-# ------------------------------------------------------------------------------
-# Expose port & define default command
-# ------------------------------------------------------------------------------
-EXPOSE ${DATASETTE_PORT}
-CMD ["/run.sh"]
+# This command is executed when the container starts
+CMD [ "/run.sh" ]

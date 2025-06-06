@@ -1,25 +1,39 @@
-name: Datasette
+name: "Datasette"
+description: "Explore and publish your Home Assistant database"
 version: "0.1.21"
-slug: datasette
-description: Browse SQLite databases with Datasette
-arch:
-  - amd64
-  - aarch64
-startup: services
-boot: auto
-ingress: true
-ingress_port: 8001
-panel_icon: mdi:database
+slug: "datasette"
 init: false
-ports:
-  8001/tcp: 8001
-schema:
-  port: int?
-  db_file: str?
+
+# Specify the architectures this addon supports.
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+
+# Auto start the addon when Home Assistant starts
+boot: "auto"
+startup: "application"
+
+# Use host networking. This makes the port you configure below
+# directly available on your Home Assistant host's IP address.
+host_network: true
+
+# Add a configuration option for the port.
+# You can change this value on the addon's "Configuration" tab.
 options:
   port: 8001
-  db_file: /homeassistant/home-assistant_v2.db
+schema:
+  port: port
+
+# Map the Home Assistant /config directory into the addon at /config
+# This is crucial for accessing the database file.
 map:
-  - type: homeassistant_config
-    read_only: True
-    path: /homeassistant
+  - "config:rw"
+
+# Set an icon for the addon UI
+panel_icon: "mdi:database-search"
+
+# Optional: Add a link to the project's homepage
+url: "https://datasette.io/"

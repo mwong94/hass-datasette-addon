@@ -1,24 +1,31 @@
 #!/usr/bin/with-contenv bashio
+# /addons/datasette/run.sh
+# This script is the entry point for the addon. It starts the datasette server.
 
-set -e
+bashio::log.info "Starting Datasette server..."
 
-# Get configuration values
-DB_PATH="$(bashio::config 'db_file')"
-PORT="$(bashio::config 'port')"
+# Read the configured port from the addon options.
+# The value is set on the "Configuration" tab of the addon page.
+PORT=$(bashio::config 'port')
 
-echo "[INFO] Home-Assistant Datasette add-on"
-echo "[INFO] Expecting database at: ${DB_PATH}"
+bashio::log.info "Datasette will be available at http://<your-home-assistant-ip>:${PORT}"
 
-# Wait until the Home-Assistant database file is present
-while [[ ! -f "${DB_PATH}" ]]; do
-  echo "[INFO] Database not found yet, waiting..."
-  sleep 5
-done
+# The Home Assistant database file.
+# We can access it because we mapped the /config directory in config.yaml
+DB_FILE="/config/home-assistant_v2.db"
 
-echo "[INFO] Starting Datasette on 0.0.0.0:${PORT}"
-exec venv/bin/datasette \
-  "${DB_PATH}" \
-  --host 0.0.0.0 \
-  --port "${PORT}" \
-  --insecure \
-  --setting sql_time_limit_ms 15000
+# Check if the database file exists
+if [ ! -f "$DB_FILE" ]; then
+    bashio::log.error "Database file not found at ${DB_FILE}"
+    bashio::log.error "Please ensure Home Assistant is running and the path is correct."
+    exit 1
+fi
+
+# Start datasette.
+# --host 0.0.0.0 makes it accessible from outside the container.
+# The port is now configurable via the addon options.
+# The 'exec' command replaces the shell process with the datasette process.
+exec datasette serve "${DB_FILE}" \
+    --host "0.0.0.0" \
+    --port "${PORT}" \
+    --metadata '{"title": "Home Assistant Database", "source": "home-assistant_v2.db"}'
