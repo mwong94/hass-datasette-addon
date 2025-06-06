@@ -7,6 +7,6 @@ if [ ! -d /data/venv ]; then
   python3 -m venv /data/venv
 fi
 
-bashio::log.info "Updating Datasette…"
+bashio::log.info "Updating Datasette (and pip)…"
 /data/venv/bin/pip install --no-cache-dir --upgrade pip
 /data/venv/bin/pip install --no-cache-dir --upgrade datasette
