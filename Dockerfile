@@ -17,32 +17,16 @@ LABEL \
 ENV \
     PYTHONUNBUFFERED=1 \
     LANG=C.UTF-8 \
-    DATA_DIR=/data \
-    DB_FILE=/config/home-assistant_v2.db \
-    DATASETTE_PORT=8001
+    S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 # ------------------------------------------------------------------------------
-# Install runtime + build dependencies, build Datasette, strip build deps
+# Install runtime dependencies
 # ------------------------------------------------------------------------------
 RUN apk add --no-cache \
         python3 \
         py3-pip \
         sqlite \
-    # ---- build deps (will be removed afterwards) ----
-    && apk add --no-cache --virtual .build-deps \
-        build-base \
-        gcc \
-        musl-dev \
-        libffi-dev \
-        openssl-dev \
-        rust \
-        cargo \
-        sqlite-dev \
-        pkgconf \
-    # ---- Python packages ----
-    && pip3 install --no-cache-dir datasette==0.65.1 \
-    # ---- clean-up ----
-    && apk del .build-deps \
+    && pip3 install --no-cache-dir datasette==0.61.1 \
     && pip3 cache purge
 
 # ------------------------------------------------------------------------------

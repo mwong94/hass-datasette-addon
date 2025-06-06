@@ -10,6 +10,7 @@ boot: auto
 ingress: true
 ingress_port: 8001
 panel_icon: mdi:database
+init: false
 ports:
   8001/tcp: 8001
 schema:

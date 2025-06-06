@@ -3,8 +3,9 @@
 
 set -e
 
-DB_PATH="${DB_FILE:-/homeassistant/home-assistant_v2.db}"
-PORT="${DATASETTE_PORT:-8001}"
+# Get configuration values
+DB_PATH="$(bashio::config 'db_file')"
+PORT="$(bashio::config 'port')"
 
 echo "[INFO] Home-Assistant Datasette add-on"
 echo "[INFO] Expecting database at: ${DB_PATH}"
