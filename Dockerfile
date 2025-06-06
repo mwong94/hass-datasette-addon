@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 LABEL \
     io.hass.name="Datasette" \
     io.hass.description="Datasette UI for the Home-Assistant database" \
-    io.hass.version="0.1.15" \
+    io.hass.version="0.1.16" \
     io.hass.type="addon"
 
 # ------------------------------------------------------------------------------
@@ -22,8 +22,8 @@ ENV \
 # ------------------------------------------------------------------------------
 # Install runtime dependencies
 # ------------------------------------------------------------------------------
-RUN python3 -m pip cache purge
-RUN python3 -m pip install --no-cache-dir datasette
+# RUN python3 -m pip cache purge
+RUN python3 -m pip install --no-cache-dir datasette==0.61.1
 
 # ------------------------------------------------------------------------------
 # Copy runtime files
@@ -32,24 +32,6 @@ COPY rootfs/ /
 
 # Make sure scripts are executable
 RUN chmod a+x /run.sh /etc/services.d/datasette/run /etc/services.d/datasette/finish
-
-# ------------------------------------------------------------------------------
-# Install runtime dependencies
-# ------------------------------------------------------------------------------
-RUN apk add --no-cache \
-        python3 \
-        py3-pip \
-        sqlite \
-    && pip3 install --no-cache-dir datasette==0.61.1 \
-    && pip3 cache purge
-
-# ------------------------------------------------------------------------------
-# Copy runtime files
-# ------------------------------------------------------------------------------
-COPY rootfs/ /
-
-# Make sure the entry-point script is executable
-RUN chmod a+x /run.sh
 
 # ------------------------------------------------------------------------------
 # Expose port & define default command
