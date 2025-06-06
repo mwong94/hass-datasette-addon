@@ -1,6 +1,6 @@
 name: "Datasette"
 description: "Explore and publish your Home Assistant database"
-version: "0.1.27"
+version: "0.1.28"
 slug: "datasette"
 init: false
 
@@ -35,7 +35,7 @@ map:
 # Set an icon for the addon UI
 ingress: true
 ingress_port: 8001
-ingress_entry: /home-assistant_v2.db
+ingress_entry: /home-assistant_v2
 panel_icon: "mdi:database-search"
 panel_title: Datasette
 panel_admin: true
